@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
-const sequelize = new Sequelize('dados_api', 'brenobarbosa', 'abcd1234', {
+const sequelize = new Sequelize('dados_app', 'brenobarbosa27', 'abcd1234', {
     host: 'mysql669.umbler.com',
     port: '41890',
     dialect: 'mysql'
