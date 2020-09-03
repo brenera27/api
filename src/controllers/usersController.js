@@ -1,78 +1,23 @@
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
-const sequelize = new Sequelize('dados_app', 'brenobarbosa27', 'abcd1234', {
-    host: 'mysql669.umbler.com',
-    port: '41890',
-    dialect: 'mysql'
-});
-const Produtos = sequelize.define('produtos', {
-    nome: {
-        type: Sequelize.STRING
-    },
-    tipo: {
-        type: Sequelize.STRING
-    },
-    estoque: {
-        type: Sequelize.DOUBLE
-    },
-    preco: {
-        type: Sequelize.DOUBLE
-    }
-});
-const Logins = sequelize.define('logins', {
-    nome: {
-        type: Sequelize.STRING
-    },
-    email: {
-        type: Sequelize.STRING
-    },
-    senha: {
-        type: Sequelize.STRING
-    },
-    palavraChave: {
-        type: Sequelize.STRING
-    },
-    dataNascimento: {
-        type: Sequelize.DATE
-    },
-    cep: {
-        type: Sequelize.STRING
-    },
-    estado: {
-        type: Sequelize.STRING
-    },
-    cidade: {
-        type: Sequelize.STRING
-    },
-    bairro: {
-        type: Sequelize.STRING
-    },
-    rua: {
-        type: Sequelize.STRING
-    },
-    numero: {
-        type: Sequelize.STRING
-    },
-    complemento: {
-        type: Sequelize.STRING
-    }
-});
-// Logins.sync({force:true});
-// Produtos.sync({force:true});
+const tabelas = require('./bancoConfig');
+
+// tabelas.Logins.sync({force:true});
+// tabelas.Produtos.sync({force:true});
 module.exports = {
     async index(req, res) {
-        const produtos = await Produtos.findAll();
+        const produtos = await tabelas.Produtos.findAll();
 
         return res.json(produtos);
     },
 
     async store(req, res) {
-        const produtos = await Produtos.create(req.body);
+        const produtos = await tabelas.Produtos.create(req.body);
 
         return res.json(produtos);
     },
     async delete(req, res) {
-        const produtos = await Produtos.destroy({
+        const produtos = await tabelas.Produtos.destroy({
             where: {
                 'id': req.query.id
             }
@@ -81,7 +26,7 @@ module.exports = {
         return res.send("apagado com sucesso");
     },
     async update(req, res) {
-        const produtos = await Produtos.update(req.body, {
+        const produtos = await tabelas.Produtos.update(req.body, {
             where: {
                 id: req.body.id
             }
@@ -90,7 +35,7 @@ module.exports = {
 
     },
     async verificaPalavra(req, res) {
-        const logins = await Logins.findAll();
+        const logins = await tabelas.Logins.findAll();
         for (var login of logins) {
             if (login.email === req.body.email) {
                 if (login.palavraChave === req.body.palavraChave) {
@@ -112,7 +57,7 @@ module.exports = {
     },
 
     async login(req, res) {
-        const logins = await Logins.findAll();
+        const logins = await tabelas.Logins.findAll();
         for (var login of logins) {
             if (login.email === req.body.email) {
                 if (login.senha === req.body.senha) {
@@ -137,7 +82,7 @@ module.exports = {
 
     },
     async storeUser(req, res) {
-        const logins = await Logins.create(req.body);
+        const logins = await tabelas.Logins.create(req.body);
         return res.json(logins);
     },
     async updateUser(req, res) {
@@ -148,7 +93,7 @@ module.exports = {
         }, {
             new: true
         });
-        const response = await Logins.findAll({
+        const response = await tabelas.Logins.findAll({
             where: {
                 id: req.body.id
             }
