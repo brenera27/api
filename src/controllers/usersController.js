@@ -82,11 +82,12 @@ module.exports = {
 
     },
     async storeUser(req, res) {
-        const logins = await tabelas.Logins.create(req.body);
-        return res.json(logins);
+        const logins = await tabelas.Logins.create(req.body)
+         return res.json(logins);
+     
     },
     async updateUser(req, res) {
-        const logins = await Logins.update(req.body, {
+        const logins = await tabelas.Logins.update(req.body, {
             where: {
                 id: req.body.id
             }
