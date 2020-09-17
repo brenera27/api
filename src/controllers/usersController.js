@@ -5,9 +5,18 @@ const tabelas = require('./bancoConfig');
 // tabelas.Logins.sync({force:true});
 // tabelas.Produtos.sync({force:true});
 module.exports = {
-    async index(req, res) {
-        const produtos = await tabelas.Produtos.findAll();
 
+    async index(req, res) {
+
+        let offset = req.body.page - 1;
+        const limit = req.body.qtd;
+        offset = offset * limit;
+        const produtos = await tabelas.Produtos.findAll({
+    limit,
+    offset,
+    where: {}, // conditions
+  });
+        
         return res.json(produtos);
     },
 
