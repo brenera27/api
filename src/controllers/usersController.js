@@ -6,20 +6,10 @@ const tabelas = require('./bancoConfig');
 // tabelas.Produtos.sync({force:true});
 module.exports = {
 
-    async index(req, res) {
-
-        let offset = req.body.page - 1;
-        const limit = req.body.qtd;
-        offset = offset * limit;
-        const produtos = await tabelas.Produtos.findAll({
-    limit,
-    offset,
-    where: {}, // conditions
-  });
-        
-        return res.json(produtos);
+    async index(req, res) { 
+        const produtos = await tabelas.Produtos.findAll();
+        return res.json({produtos});
     },
-
     async store(req, res) {
         const produtos = await tabelas.Produtos.create(req.body);
 
@@ -92,8 +82,8 @@ module.exports = {
     },
     async storeUser(req, res) {
         const logins = await tabelas.Logins.create(req.body)
-         return res.json(logins);
-     
+        return res.json(logins);
+
     },
     async updateUser(req, res) {
         const logins = await tabelas.Logins.update(req.body, {
