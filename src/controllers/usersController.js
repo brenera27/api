@@ -6,9 +6,9 @@ const tabelas = require('./bancoConfig');
 // tabelas.Produtos.sync({force:true});
 module.exports = {
 
-    async index(req, res) { 
+    async index(req, res) {
         const produtos = await tabelas.Produtos.findAll();
-        return res.json({produtos});
+        return res.json({ produtos });
     },
     async store(req, res) {
         const produtos = await tabelas.Produtos.create(req.body);

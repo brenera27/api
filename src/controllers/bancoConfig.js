@@ -16,6 +16,9 @@ Produtos : sequelize.define('produtos', {
     estoque: {
         type: Sequelize.DOUBLE
     },
+    estoqueMin: {
+        type: Sequelize.DOUBLE
+    },
     preco: {
         type: Sequelize.DOUBLE
     }
