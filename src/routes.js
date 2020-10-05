@@ -5,7 +5,6 @@ const usersController = require('./controllers/usersController');
 
 
 routes.get("/produtos", usersController.index);
-routes.get("/produtos/filtro", usersController.filtroTipo);
 routes.post('/produtos/novo', usersController.store);
 routes.delete('/produtos/apagar', usersController.delete);
 routes.put("/produtos/update", usersController.update);
