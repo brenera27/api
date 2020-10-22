@@ -10,6 +10,21 @@ module.exports = {
         const produtos = await tabelas.Produtos.findAll();
         return res.json({ produtos });
     },
+    async buscaBaixoEstq(req, res) {
+        const produtos = await tabelas.Produtos.findAll();
+        let total = 0;
+        const filtrados = []
+        produtos.map((produto)=>{
+            if(produto.estoque < produto.estoqueMin){
+                total++;
+                filtrados.push(produto) ;           
+            }
+        })
+        return res.json({  
+            "produtos":filtrados,
+            "total":total
+        });
+    },
     async store(req, res) {
         const produtos = await tabelas.Produtos.create(req.body);
 
@@ -22,7 +37,7 @@ module.exports = {
             }
         });
 
-        return res.send("apagado com sucesso");
+        return res.send("apagado com s  ucesso");
     },
     async update(req, res) {
         const produtos = await tabelas.Produtos.update(req.body, {
