@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
-const sequelize = new Sequelize('bancoApi', 'breno', '1234567', {
-    host: 'mysql-12913-0.cloudclusters.net',
-    port: '12928',
+const sequelize = new Sequelize('db_app_produtos', 'breno', '1234567', {
+    host: 'mysql-14313-0.cloudclusters.net',
+    port: '14336',
     dialect: 'mysql'
 });
 module.exports = {
