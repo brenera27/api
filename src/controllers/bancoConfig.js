@@ -5,6 +5,13 @@ const sequelize = new Sequelize('db_app_produtos', 'breno', '1234567', {
     port: '14336',
     dialect: 'mysql'
 });
+
+// const sequelize = new Sequelize('apiprodutos', 'root', '', {
+//     host: 'localhost',
+//     port: '3306',
+//     dialect: 'mysql'
+// });
+
 module.exports = {
 Produtos : sequelize.define('produtos', {
     nome: {
