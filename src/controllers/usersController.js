@@ -15,9 +15,9 @@ module.exports = {
         let estqBaixo = false
         const produtos = await tabelas.Produtos.findAll()
         let filtrados = []
-
+        let qtdFiltros = 0
         filtros.map(async (filtro) => {
-
+            qtdFiltros++
             if (filtro == 'estoque-baixo') {
                 estqBaixo = true
             }
@@ -60,11 +60,19 @@ module.exports = {
         })
         const resposta = [];
         if(estqBaixo == true){
-            filtrados.map((produto)=>{
-                if(produto.estoque < produto.estoqueMin){
-                    resposta.push(produto)
-                }
-            })
+            if(qtdFiltros == 1){
+                produtos.map((produto)=>{
+                    if(produto.estoque < produto.estoqueMin){
+                        resposta.push(produto)
+                    }
+                })
+            }else{
+                filtrados.map((produto)=>{
+                    if(produto.estoque < produto.estoqueMin){
+                        resposta.push(produto)
+                    }
+                })
+            } 
         }else{
             return res.json({ "produtos":filtrados });
         }
@@ -133,7 +141,7 @@ module.exports = {
 
     async login(req, res) {
         const logins = await tabelas.Logins.findAll();
-        for (var login of logins) {
+        logins.map((login)=>{
             if (login.email === req.body.email) {
                 if (login.senha === req.body.senha) {
                     return res.json({
@@ -148,14 +156,12 @@ module.exports = {
                     });
                 }
             }
-
-        }
+        })
         return res.json({
             "mensagem": "Email inválido"
         });
-
-
     },
+    
     async storeUser(req, res) {
         const logins = await tabelas.Logins.create(req.body)
         return res.json(logins);
