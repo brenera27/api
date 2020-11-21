@@ -10,6 +10,15 @@ module.exports = {
         const produtos = await tabelas.Produtos.findAll()
         return res.json({ produtos })
     },
+    async buscaId(req, res) {
+        let produto = await tabelas.Produtos.findAll({
+            where:{
+                id : req.query.id
+            }
+        })
+        produto = produto[0]
+        return res.json({ produto })
+    },
     async buscaFiltros(req, res) {
         const filtros = req.body.filtros
         let estqBaixo = false
@@ -95,7 +104,7 @@ module.exports = {
         });
     },
     async store(req, res) {
-        const produtos = await tabelas.Produtos.create(req.body);
+        const produtos = await tabelas.Produtos.create(req.body.produto);
 
         return res.json(produtos);
     },
@@ -106,22 +115,23 @@ module.exports = {
             }
         });
 
-        return res.send("apagado com s  ucesso");
+        return res.send("apagado com sucesso");
     },
     async update(req, res) {
-        const produtos = await tabelas.Produtos.update(req.body, {
+        const produtos = await tabelas.Produtos.update(req.body.produto, {
             where: {
-                id: req.body.id
+                id: req.body.produto.id
             }
         });
         return res.json(produtos);
 
     },
     async verificaPalavra(req, res) {
+        const {email, palavraChave} = req.body
         const logins = await tabelas.Logins.findAll();
-        for (var login of logins) {
-            if (login.email === req.body.email) {
-                if (login.palavraChave === req.body.palavraChave) {
+        logins.map((login)=>{
+            if (login.email === email) {
+                if (login.palavraChave === palavraChave) {
                     return res.json({
                         token: jwt.sign({
                             email: login.email
@@ -134,9 +144,7 @@ module.exports = {
                     });
                 }
             }
-
-        }
-
+        })
     },
 
     async login(req, res) {
@@ -148,7 +156,7 @@ module.exports = {
                         token: jwt.sign({
                             email: login.email
                         }, 'meusegredo'),
-                        user: login
+                        id: login.id
                     });
                 } else {
                     return res.json({
@@ -160,6 +168,15 @@ module.exports = {
         return res.json({
             "mensagem": "Email inválido"
         });
+    },
+    async buscaUser(req, res) {
+        let usuario = await tabelas.Logins.findAll({
+            where:{
+                id : req.query.id
+            }
+        })
+        usuario = usuario[0]
+        return res.json({ usuario })
     },
     
     async storeUser(req, res) {
