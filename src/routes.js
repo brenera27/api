@@ -7,6 +7,7 @@ const usersController = require('./controllers/usersController');
 routes.get("/produtos", usersController.index);
 routes.get("/estoque-baixo", usersController.buscaBaixoEstq);
 routes.get("/busca-id", usersController.buscaId);
+routes.get("/busca-nome", usersController.buscaNome);
 routes.post("/produtos-filtrados", usersController.buscaFiltros);
 routes.post('/produtos/novo', usersController.store);
 routes.delete('/produtos/apagar', usersController.delete);

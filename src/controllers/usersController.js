@@ -10,6 +10,7 @@ module.exports = {
         const produtos = await tabelas.Produtos.findAll()
         return res.json({ produtos })
     },
+
     async buscaId(req, res) {
         let produto = await tabelas.Produtos.findAll({
             where:{
@@ -19,6 +20,18 @@ module.exports = {
         produto = produto[0]
         return res.json({ produto })
     },
+
+    async buscaNome(req, res) {
+        let produto = await tabelas.Produtos.findAll({
+            where:{
+                nome : req.query.nome
+            }
+        })
+        produto = produto[0]
+        return produto != null ?  res.json({ produto }) :  res.json( "Produto não encontrado" )
+        
+    },
+
     async buscaFiltros(req, res) {
         const filtros = req.body.filtros
         let estqBaixo = false
@@ -88,6 +101,7 @@ module.exports = {
 
         return res.json({ "produtos":resposta });
     },
+
     async buscaBaixoEstq(req, res) {
         const produtos = await tabelas.Produtos.findAll();
         let total = 0;
@@ -103,6 +117,7 @@ module.exports = {
             "total": total
         });
     },
+
     async store(req, res) {
         const produtos = await tabelas.Produtos.create(req.body.produto);
 
@@ -117,6 +132,7 @@ module.exports = {
 
         return res.send("apagado com sucesso");
     },
+
     async update(req, res) {
         const produtos = await tabelas.Produtos.update(req.body.produto, {
             where: {
@@ -126,6 +142,7 @@ module.exports = {
         return res.json(produtos);
 
     },
+
     async verificaPalavra(req, res) {
         const {email, palavraChave} = req.body
         const logins = await tabelas.Logins.findAll();
@@ -169,6 +186,7 @@ module.exports = {
             "mensagem": "Email inválido"
         });
     },
+
     async buscaUser(req, res) {
         let usuario = await tabelas.Logins.findAll({
             where:{
@@ -180,14 +198,16 @@ module.exports = {
     },
     
     async storeUser(req, res) {
-        const logins = await tabelas.Logins.create(req.body)
-        return res.json(logins);
+        
+         const pessoa = await tabelas.Logins.create(req.body.pessoa)
+         return res.json(pessoa);
 
     },
+
     async updateUser(req, res) {
-        const logins = await tabelas.Logins.update(req.body, {
+        const logins = await tabelas.Logins.update(req.body.pessoa, {
             where: {
-                id: req.body.id
+                id: req.body.pessoa.id
             }
         }, {
             new: true
