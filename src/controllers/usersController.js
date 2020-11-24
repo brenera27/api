@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const tabelas = require('./bancoConfig');
 
-// tabelas.Logins.sync({force:true});
+//tabelas.Logins.sync({force:true});
 // tabelas.Produtos.sync({force:true});
 module.exports = {
 
@@ -212,15 +212,6 @@ module.exports = {
         }, {
             new: true
         });
-        const response = await tabelas.Logins.findAll({
-            where: {
-                id: req.body.id
-            }
-        });
-        return res.json(response[0]);
-
+        return res.json("Atualizado com sucesso");
     }
-
-
-
 }

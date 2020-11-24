@@ -44,7 +44,7 @@ Produtos : sequelize.define('produtos', {
         type: Sequelize.STRING
     },
     dataNascimento: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING
     },
     cep: {
         type: Sequelize.STRING
