@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const tabelas = require('./bancoConfig');
 
-//tabelas.Logins.sync({force:true});
+// tabelas.Logins.sync({force:true});
 // tabelas.Produtos.sync({force:true});
 module.exports = {
 

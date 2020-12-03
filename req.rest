@@ -7,6 +7,6 @@ body:{"produto":{"nome":"teste","preco":30.99}}
 
 ###
 http://localhost:3000/api/usuarios/novo
-body:{"produto":{"nome":"teste","preco":30.99}}
+body:{"pessoa":{"nome":"teste","email":"breno@123"}}
 
 

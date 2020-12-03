@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
-const sequelize = new Sequelize('db_app_produtos', 'breno', '1234567', {
-    host: 'mysql-14313-0.cloudclusters.net',
-    port: '14336',
+const sequelize = new Sequelize('bd_api', 'breno', '12345678', {
+    host: 'mysql-16280-0.cloudclusters.net',
+    port: '16280',
     dialect: 'mysql'
 });
 
