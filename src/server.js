@@ -1,6 +1,10 @@
 const express = require('express');
-var cors = require('cors');
+const routes = require('./routes');
+
+require('./database');
+
 const app = express();
+var cors = require('cors');
 app.use(express.json());
 app.use((req,res,next) => {
     app.use(cors());
@@ -8,12 +12,10 @@ app.use((req,res,next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
-
 });
-app.use('/api', require('./src/routes'));
+app.use(routes);
 
-
-var port = process.env.PORT || 3000;
+var port = 3333;
 app.listen(port, function () {
-    console.log('Rodando na porta %s', port);
+    console.log('Running in port %s', port);
 });
